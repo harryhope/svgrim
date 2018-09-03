@@ -1,0 +1,26 @@
+{
+  "name": "@harryhope/svgrim",
+  "version": "1.0.0",
+  "description": "SVGR Improved. Reactify svgs with additional options.",
+  "main": "index.js",
+  "bin": {
+    "svgrim": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harryhope/svgrim.git"
+  },
+  "author": "Harry Hope",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/harryhope/svgrim/issues"
+  },
+  "homepage": "https://github.com/harryhope/svgrim#readme",
+  "dependencies": {
+    "@svgr/core": "^2.2.0",
+    "commander": "^2.17.1"
+  }
+}
