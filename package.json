@@ -21,6 +21,7 @@
   "homepage": "https://github.com/harryhope/svgrim#readme",
   "dependencies": {
     "@svgr/core": "^2.2.0",
-    "commander": "^2.17.1"
+    "commander": "^2.17.1",
+    "lodash": "^4.17.10"
   }
 }
