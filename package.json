@@ -1,6 +1,6 @@
 {
   "name": "@harryhope/svgrim",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "SVGR Improved. Reactify svgs with additional options.",
   "main": "index.js",
   "bin": {
