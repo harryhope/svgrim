@@ -37,14 +37,12 @@ const main = async (settings) => {
     const transforms = settings.replace && settings.with ? results.map(([svg, name]) => {
       return [settings.replace.reduce((acc, replacee, index) => {
         const replacement = settings.with[index]
-        console.log(replacee, replacement)
         return acc.replace(
           new RegExp(esc(replacee), 'g'),
           replacement
         )
       }, svg), name]
     }) : results
-    console.log(transforms)
     const reactFiles = transforms.map(([svg, name]) =>
       writefile(rename(name), svg)
     )
