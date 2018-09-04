@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 const _ = require('lodash')
 const fs = require('fs')
 const app = require('commander')
