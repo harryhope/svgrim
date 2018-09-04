@@ -45,7 +45,7 @@ const main = async (settings) => {
       }, svg), name]
     }) : results
     const reactFiles = transforms.map(([svg, name]) =>
-      writefile(rename(name), svg)
+      writefile(settings.dir + rename(name), svg)
     )
     await Promise.all(writes)
     console.log(`Finished writing ${reactFiles.length} file(s).`)
