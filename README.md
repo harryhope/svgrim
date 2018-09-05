@@ -5,12 +5,12 @@ svgrim is a wrapper around [svgr](https://github.com/smooth-code/svgr) with addi
 
 ## Installation
 To install globally, run
-```bash
+```
 npm i -g @harryhope/svgrim
 ```
 
 ## Usage
-```bash
+```
   Usage: svgrim [options]
 
   SVGR Improved. Reactify svgs with additional options.
