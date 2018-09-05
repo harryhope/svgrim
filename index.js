@@ -4,6 +4,7 @@ const fs = require('fs')
 const app = require('commander')
 const svgr = require('@svgr/core').default
 const util = require('util')
+const pkg = require('./package.json')
 
 const readdir = util.promisify(fs.readdir)
 const readfile = util.promisify(fs.readFile)
@@ -13,17 +14,21 @@ const componentName = filename => _.upperFirst(_.camelCase(_.trim(filename.repla
 const esc = str =>
   str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
+const indexerTemplate = filename => `export {default as ${componentName(filename)}} from './${filename.replace('.svg', '')}'`
+
 app
-  .version('1.0.0')
+  .version(pkg.version)
+  .description(pkg.description)
   .option('-d, --dir [value]', 'A directory of svgs to convert', './')
-  .option('-r, --replace <values>', 'Strings to replace', str => str.split(','))
-  .option('-w, --with <values>', 'Values to replace --replace with', str => str.split(','))
+  .option('-r, --replace <values>', 'strings to replace', str => str.split(','))
+  .option('-w, --with <values>', 'values to replace --replace with', str => str.split(','))
   .option('--icon', 'use "1em" as width and height and add viewbox')
   .option('--ext <ext>', 'specify a custom file extension (default: "js")')
   .option('--no-dimensions', 'remove width and height from root SVG tag')
   .option('--native', 'add react-native support with react-native-svg')
   .option('--ref', 'add svgRef prop to svg')
   .option('--title-prop', 'create a title element linked with props')
+  .option('--create-index', 'create an index file with ES6 export syntax')
   .parse(process.argv)
 
 const main = async (settings) => {
@@ -44,10 +49,16 @@ const main = async (settings) => {
         )
       }, svg), name]
     }) : results
+
     const reactFiles = transforms.map(([svg, name]) =>
       writefile(settings.dir + rename(name), svg)
     )
-    await Promise.all(writes)
+    await Promise.all(reactFiles)
+    if (settings.createIndex) {
+      const indexFile = svgs.map(name => indexerTemplate(name)).join('\n')
+      await writefile(settings.dir + '/index.js', indexFile)
+      console.log(`Created and index file called index.js`)
+    }
     console.log(`Finished writing ${reactFiles.length} file(s).`)
   } catch (err) {
     console.error('\033[1mError:\033[0m ', err)
